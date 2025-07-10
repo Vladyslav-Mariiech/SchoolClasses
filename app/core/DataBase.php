@@ -7,7 +7,7 @@ use mysqli;
 /**
  * Singleton class for working with MySQL database using mysqli
  */
-class Database
+class DataBase
 {
     /**
      * @var Database|null
@@ -106,5 +106,13 @@ class Database
 
         $stmt->close();
         return true;
+    }
+
+    /**
+     * @return mysqli
+     */
+    public function getConnection(): mysqli
+    {
+        return $this->connector;
     }
 }
