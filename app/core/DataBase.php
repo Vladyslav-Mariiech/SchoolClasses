@@ -62,7 +62,6 @@ class DataBase
 
     /**
      * Prevents unserializing of the singleton instance.
-     *
      * @return never
      */
     public function __wakeup(): never
