@@ -39,10 +39,10 @@ class UserController
 
     /**
      * Finds a user by login name
-     * @param $name
+     * @param string $name
      * @return void
      */
-    public function find($name): void
+    public function find(string $name): void
     {
         if(empty($name)){
             Session::setSession('error', 'login not found');
