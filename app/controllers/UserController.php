@@ -39,7 +39,7 @@ class UserController
 
     /**
      * Finds a user by login name
-     * @param string $name
+     * @param $name
      * @return void
      */
     public function find(string $name): void
@@ -48,8 +48,7 @@ class UserController
             Session::setSession('error', 'login not found');
             return;
         }
-        $userLogin = $this->userModel->find($name);
-        var_dump($userLogin);
+        $this->userModel->find($name);
     }
 
 }
