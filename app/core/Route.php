@@ -25,12 +25,17 @@ class Route
             'controller' => 'Class',
             'action' => 'join',
         ],
+        '/class/add/' => [
+            'method' => 'GET',
+            'controller' => 'Class',
+            'action' => 'add',
+        ],
     ];
     /**
      * Default controller
      * @var string
      */
-    protected const DEFAULT_CONTROLLER = 'IndexController';
+    protected const DEFAULT_CONTROLLER = 'Index';
     /**
      * Default action
      * @var string
