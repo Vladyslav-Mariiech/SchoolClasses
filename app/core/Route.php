@@ -30,7 +30,7 @@ class Route
      * Default controller
      * @var string
      */
-    protected const DEFAULT_CONTROLLER = 'IndexController';
+    protected const DEFAULT_CONTROLLER = 'Index';
     /**
      * Default action
      * @var string
