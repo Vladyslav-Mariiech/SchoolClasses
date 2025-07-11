@@ -15,14 +15,14 @@ class Route
             'controller' => self::DEFAULT_CONTROLLER,
             'action' => self::DEFAULT_ACTION,
         ],
-        '/group/invite/' => [
+        '/class/invite/' => [
             'method' => 'GET',
-            'controller' => 'Group',
-            'action' => 'invite',
+            'controller' => 'Class',
+            'action' => 'showInvite',
         ],
-        '/group/join/' => [
+        '/class/join/' => [
             'method' => 'GET',
-            'controller' => 'Group',
+            'controller' => 'Class',
             'action' => 'join',
         ],
     ];
