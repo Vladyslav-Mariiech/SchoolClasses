@@ -2,12 +2,12 @@
 
 namespace app\models;
 
-use app\core\Database;
+use app\core\DataBase;
 
 class BaseModel
 {
     /**
-     * @var Database
+     * @var DataBase
      */
     protected $db;
 
@@ -16,6 +16,6 @@ class BaseModel
      */
     public function __construct()
     {
-        $this->db = Database::getInstance();
+        $this->db = DataBase::getInstance();
     }
 }
