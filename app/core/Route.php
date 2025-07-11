@@ -25,6 +25,11 @@ class Route
             'controller' => 'Class',
             'action' => 'join',
         ],
+        '/class/add/' => [
+            'method' => 'GET',
+            'controller' => 'Class',
+            'action' => 'add',
+        ],
     ];
     /**
      * Default controller

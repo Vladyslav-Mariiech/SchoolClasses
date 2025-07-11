@@ -39,17 +39,15 @@ class UserController
 
     /**
      * Finds a user by login name
-     * @param $name
-     * @return void
+     * @param string $name
+     * @return array|bool
      */
-    public function find($name): void
+    public function find(string $name): array|bool
     {
         if(empty($name)){
-            Session::setSession('error', 'login not found');
-            return;
+            return false;
         }
-        $userLogin = $this->userModel->find($name);
-        var_dump($userLogin);
+        return $this->userModel->find($name);
     }
 
 }
