@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Database;
+use app\core\DataBase;
 
 Database::getInstance()->query("
     ALTER TABLE classes 
