@@ -31,6 +31,9 @@ class View
     public function render(string $viewName, array $params = []) : void
     {
         extract($params);
+        if (isset($title)){
+            $title = SITE_NAME . ' | ' . $title;
+        }
         include_once $this->getTemplatePath();
     }
 
