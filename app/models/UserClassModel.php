@@ -18,27 +18,24 @@ class UserClassModel extends BaseModel
             [$userId, $classId]
         );
     }
-    
+
     /**
-     * Returns list of class_id
+     * Returns classes array
      * @param int $userId
      * @return array
      */
     public function allClasses(int $userId): array
     {
         $result = $this->db->query(
-            'SELECT class_id FROM users_classes WHERE user_id = ?',
+            'SELECT users_classes.class_id, classes.name, classes.link, classes.owner_id FROM users_classes 
+            INNER JOIN classes 
+            ON users_classes.class_id = classes.id
+            WHERE users_classes.user_id = ?',
             'i',
-            [$userId]
+            [$userId],
         );
-        $classes = [];
-        if($result){
-            foreach($result as $class){
-             array_push($classes, $class['class_id']);
-            }
-        }
 
-        return $classes;
+        return $result;
     }
 
     /**
@@ -54,9 +51,9 @@ class UserClassModel extends BaseModel
             [$classId]
         );
         $users = [];
-        if($result){
-            foreach($result as $user){
-             array_push($users, $user['user_id']);
+        if ($result) {
+            foreach ($result as $user) {
+                array_push($users, $user['user_id']);
             }
         }
 

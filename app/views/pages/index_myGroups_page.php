@@ -7,9 +7,9 @@
         <form>
             <h2>Групи вчитель</h2>
             <ul>
-                <li>Група 1</li>
-                <li>Група 2</li>
-                <li>Група 3</li>
+                <?php foreach ($ownedClasses as $class): ?>
+                    <li><a href="#"><?= $class['name'] ?></a></li>
+                <?php endforeach; ?>
             </ul>
             <button type="button" onclick="location.href='index_inviteToGroup_page.php'">Запросити до групи</button>
             <button type="button" onclick="location.href='index_createGroup_page.php'">Створити групу</button>
@@ -18,8 +18,9 @@
         <form>
             <h2>Групи учень</h2>
             <ul>
-                <li>Група A</li>
-                <li>Група B</li>
+                <?php foreach ($studyClasses as $class): ?>
+                    <li><a href="#"><?= $class['name'] ?></a></li>
+                <?php endforeach; ?>
             </ul>
         </form>
     </div>
