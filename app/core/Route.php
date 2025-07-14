@@ -30,6 +30,16 @@ class Route
             'controller' => 'Class',
             'action' => 'add',
         ],
+        '/index/registerPage/' => [
+            'method' => 'GET',
+            'controller' => 'Index',
+            'action' => 'registerPage',
+        ],
+        '/auth/register' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'register',
+        ]
     ];
     /**
      * Default controller
@@ -78,4 +88,12 @@ class Route
         }
         $controller->$action();
     }
+//    static public function url(string $controller = 'index', string $action = 'index', array $params = []) : string
+//    {
+//        $getParams = '';
+//        foreach ($params as $key => $value) {
+//            $getParams .= $key . '=' . $value . '&';
+//        }
+//        return '/?controller=' . strtolower($controller) . '&action=' . strtolower($action) . '&' . $getParams;
+//    }
 }
