@@ -30,6 +30,11 @@ class Route
             'controller' => 'Class',
             'action' => 'add',
         ],
+        '/class' => [
+            'method' => 'GET',
+            'controller' => 'Class',
+            'action' => self::DEFAULT_ACTION,
+        ],
     ];
     /**
      * Default controller
