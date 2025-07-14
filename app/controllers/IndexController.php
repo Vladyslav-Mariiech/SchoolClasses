@@ -17,4 +17,9 @@ class IndexController{
             'title' => 'Головна',
         ]);
     }
+    public function register() {
+        $this->view->render('index_register', [
+           'title' => 'Реєстрація',
+        ]);
+    }
 }
