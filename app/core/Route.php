@@ -52,8 +52,7 @@ class Route
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         if (!array_key_exists($uri, self::ROUTES)) {
-            Response::status(404);
-            exit();
+            $this->notFound();
         }
 
         $route = self::ROUTES[$uri];
@@ -62,20 +61,24 @@ class Route
             $_SERVER['REQUEST_METHOD'] !== $route['method']
         ) {
             Response::status(405);
-            exit();
+            exit('Метод не дозволено');
         }
 
         $controllerClass = 'app\controllers\\' . $route['controller'] . 'Controller';
         if (!class_exists($controllerClass)) {
-            Response::status(404);
-            exit("Контролер $controllerClass не знайдено");
+            $this->notFound();
         }
         $action = $route['action'];
         $controller = new $controllerClass();
         if (!method_exists($controller, $action)) {
-            Response::status(404);
-            exit("Метод $controllerClass $action не знайдено");
+            $this->notFound();
         }
         $controller->$action();
+    }
+
+    protected function notFound()
+    {
+        Response::status(404);
+        exit('Не знайдено');
     }
 }
