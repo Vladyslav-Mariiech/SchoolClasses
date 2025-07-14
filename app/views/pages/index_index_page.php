@@ -8,7 +8,9 @@
         </a>
     </div>
     <div class="form-block">
-        <button onclick="location.href='index_register_page.php'" class="register-btn">Реєстрація</button>
+        <form method="get" action="/index/registerPage/">
+            <button class="register-btn">Реєстрація</button>
+        </form>
         <form>
             <h2>Вхід</h2>
             <label>
