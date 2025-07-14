@@ -33,13 +33,13 @@ class Route
         '/index/registerPage/' => [
             'method' => 'GET',
             'controller' => 'Index',
-            'action' => 'registerPage',
+            'action' => 'register',
         ],
         '/auth/register' => [
             'method' => 'POST',
             'controller' => 'Auth',
             'action' => 'register',
-        ]
+        ],
     ];
     /**
      * Default controller
