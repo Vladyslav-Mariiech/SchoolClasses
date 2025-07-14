@@ -3,7 +3,7 @@
 </header>
 <main>
     <div class="form-block">
-        <form>
+        <form method="post" action="/auth/register">
             <label>
                 Email: <br>
                 <input type="email" name="email">
