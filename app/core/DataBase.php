@@ -47,9 +47,9 @@ class DataBase
      *
      * @return self
      */
-    public static function getInstance(): self
+    public static function getInstance(): Database
     {
-        if (self::$instance === null) {
+        if (is_null(self::$instance)) {
             self::$instance = new self();
         }
         return self::$instance;
@@ -62,9 +62,9 @@ class DataBase
 
     /**
      * Prevents unserializing of the singleton instance.
-     * @return never
+     * @return void
      */
-    public function __wakeup(): never
+    public function __wakeup(): void
     {
         exit($this->errors['singleton']);
     }
@@ -91,13 +91,18 @@ class DataBase
         }
 
         if (!$stmt->execute()) {
+            $errorMessage = $stmt->error ?? 'Unknown error';
             $stmt->close();
-            exit($this->errors['execute'] . $stmt->error);
+            exit($this->errors['execute'] . $errorMessage);
         }
 
-        $result = $stmt->get_result();
+        if (preg_match('/^\s*SELECT/i', $query)) {
+            $result = $stmt->get_result();
+            if (!$result) {
+                $stmt->close();
+                return [];
+            }
 
-        if ($result instanceof \mysqli_result) {
             $data = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
             return $data;
