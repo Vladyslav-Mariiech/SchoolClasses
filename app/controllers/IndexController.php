@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\View;
+use app\controllers\AuthController;
 
 
 class IndexController{
@@ -20,6 +21,13 @@ class IndexController{
     public function register() {
         $this->view->render('index_register', [
            'title' => 'Реєстрація',
+        ]);
+    }
+    public function myGroups() {
+        \app\controllers\AuthController::checkAccess();
+
+        $this->view->render('index_myGroups', [
+            'title' => 'MyGroups',
         ]);
     }
 }
