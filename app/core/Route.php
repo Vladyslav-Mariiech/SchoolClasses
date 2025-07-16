@@ -44,6 +44,21 @@ class Route
             'controller' => 'Auth',
             'action' => 'register',
         ],
+        '/auth/login' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'login',
+        ],
+        '/auth/logout' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'logout',
+        ],
+        '/index/myGroupsPage' => [
+            'method' => 'GET',
+            'controller' => 'Index',
+            'action' => 'myGroups',
+        ],
     ];
     /**
      * Default controller
