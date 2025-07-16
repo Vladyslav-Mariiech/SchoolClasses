@@ -3,13 +3,17 @@
 namespace app\controllers;
 
 use app\models\UserModel;
+Use app\models\AuthModel;
+use app\exceptions\HttpUnauthorizedException;
 
 class AuthController
 {
     protected $UserModel;
+    protected $auth;
 
     public function __construct(){
         $this->UserModel = new UserModel();
+        $this->auth = new AuthModel();
     }
 
     public function register()
@@ -46,9 +50,42 @@ class AuthController
         }
     }
     public function login(){
-
+        $login = filter_input(INPUT_POST, 'login');
+        $password = filter_input(INPUT_POST, 'password');
+        if ($this->auth->validUser($login, $password)) {
+            \app\core\Session::setSession('user', [
+                'login' => $login,
+            ]);
+            header('Location: /index/myGroupsPage/');
+            exit;
+        } else {
+            echo 'Some error when Login';
+        }
     }
     public function logout(){
+        $_SESSION = [];
 
+        session_destroy();
+
+        if(ini_get('session.use_cookies')){
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+        header('Location: /');
+        exit;
+    }
+
+    public static function checkAccess(): void {
+        if (!\app\core\Session::getSession('user')) {
+            throw new HttpUnauthorizedException();
+        }
     }
 }
