@@ -3,7 +3,7 @@
 </header>
 <main>
     <div class="left-block">
-        <a href="index_index_page.php">
+        <a href="/">
             <img src="images/logo.png" alt="Логотип школи" class="logo">
         </a>
     </div>
@@ -11,7 +11,7 @@
         <form method="get" action="/index/registerPage/">
             <button class="register-btn">Реєстрація</button>
         </form>
-        <form>
+        <form method="post" action="/auth/login">
             <h2>Вхід</h2>
             <label>
                 Логін: <br>
