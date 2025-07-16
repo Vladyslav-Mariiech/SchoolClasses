@@ -2,6 +2,11 @@
     <h1>МОЇ ГРУПИ</h1>
 </header>
 <main class="centered-main">
+    <div>
+        <form method="post" action="/auth/logout">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
     <div class="form-block">
         <p style="text-align: right;"><strong>Привіт, логін!</strong></p>
         <form>
