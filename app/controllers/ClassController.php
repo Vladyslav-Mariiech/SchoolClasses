@@ -1,65 +1,32 @@
 <?php
 
 namespace app\controllers;
-use app\core\Session;
 use app\core\View;
 use app\models\ClassModel;
 use app\models\UserClassModel;
+use app\controllers\BaseClassController;
 
-class ClassController
+class ClassController extends BaseClassController
 {
     protected UserClassModel $UserClassModel;
-    protected ClassModel $ClassModel;
+
     protected View $View;
     public function __construct()
     {
+        parent::__construct();
         $this->UserClassModel = new UserClassModel();
-        $this->ClassModel = new ClassModel();
+
         $this->View = new View();
     }
 
     public function index()
-    {
-        //TODO Debug
-        // $userId = Session::getSession('user_id');
-        $userId = 1;
-        $usersClasses = $this->UserClassModel->allClasses($userId);
-        $studyClasses = [];
-        $ownedClasses = [];
-        foreach ($usersClasses as $class){
-            if ($class['owner_id'] === $userId){
-                array_push($ownedClasses, $class);
-            } else{
-                array_push($studyClasses, $class);
-            }
-        }
-
+    {     
         $this->View->render('index_myGroups', [
             'title' => 'Мої групи',
-            'useri_id' => $userId,
-            'ownedClasses' => $ownedClasses,
-            'studyClasses' => $studyClasses,
+            'user_id' => $this->userId,
+            'ownedClasses' => $this->ClassService->getOwner(),
+            'memberClasses' => $this->ClassService->getMember(),
         ]);
-    }
-
-    //TODO JS?
-    public function showCreate()
-    {
-
-    }
-    //TODO API?
-    public function add(string $name, $ownerId)
-    {
-        //TODO link
-        $newClassId = $this->ClassModel->add($name, 'link5', $ownerId);
-        $this->UserClassModel->add($ownerId, $newClassId);
-        echo 'Created';
-    }
-
-    public static function createLink(int $classId): string
-    {
-        //TODO Validate
-        return '/class/join/?id=' . $classId;
     }
 
     /**
@@ -95,3 +62,4 @@ class ClassController
         }
     }
 }
+
