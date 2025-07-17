@@ -2,6 +2,11 @@
 
 namespace app\core;
 
+use app\exceptions\HttpException;
+use app\exceptions\HttpNotFoundException;
+use app\exceptions\HttpWrongMethodExeption;
+
+
 class Route
 {
     protected const ROUTES = [
@@ -10,25 +15,49 @@ class Route
             'controller' => self::DEFAULT_CONTROLLER,
             'action' => self::DEFAULT_ACTION,
         ],
-        '/index/index/' => [
-            'method' => 'GET',
-            'controller' => self::DEFAULT_CONTROLLER,
-            'action' => self::DEFAULT_ACTION,
-        ],
-        '/class/invite/' => [
+        '/class/invite' => [
             'method' => 'GET',
             'controller' => 'Class',
             'action' => 'showInvite',
         ],
-        '/class/join/' => [
+        '/class/join' => [
             'method' => 'GET',
             'controller' => 'Class',
             'action' => 'join',
         ],
-        '/class/add/' => [
+        '/class/add' => [
+            'method' => 'POST',
+            'controller' => 'ClassApi',
+            'action' => 'create',
+        ],
+        '/class' => [
             'method' => 'GET',
             'controller' => 'Class',
-            'action' => 'add',
+        ],
+        '/index/registerPage' => [
+            'method' => 'GET',
+            'controller' => 'Index',
+            'action' => 'register',
+        ],
+        '/auth/register' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'register',
+        ],
+        '/auth/login' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'login',
+        ],
+        '/auth/logout' => [
+            'method' => 'POST',
+            'controller' => 'Auth',
+            'action' => 'logout',
+        ],
+        '/index/myGroupsPage' => [
+            'method' => 'GET',
+            'controller' => 'Index',
+            'action' => 'myGroups',
         ],
     ];
     /**
@@ -44,38 +73,43 @@ class Route
 
     public function __construct()
     {
-        $this->init();
+        try {
+            $this->init();
+        } catch (HttpException $e) {
+            exit($e->getMessage());
+        }
+
     }
 
     public function init(): void
     {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/') ?: '/';
 
         if (!array_key_exists($uri, self::ROUTES)) {
-            Response::status(404);
-            exit();
+            throw new HttpNotFoundException();
         }
 
         $route = self::ROUTES[$uri];
 
-        if (
-            $_SERVER['REQUEST_METHOD'] !== $route['method']
-        ) {
-            Response::status(405);
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] !== $route['method']) {
+            throw new HttpWrongMethodExeption();
         }
 
-        $controllerClass = 'app\controllers\\' . $route['controller'] . 'Controller';
+        $controllerName = $route['controller'];
+        $action = $route['action'] ?? self::DEFAULT_ACTION;
+
+        $controllerClass = 'app\controllers\\' . ucfirst($controllerName) . 'Controller';
+
         if (!class_exists($controllerClass)) {
-            Response::status(404);
-            exit("Контролер $controllerClass не знайдено");
+            throw new HttpNotFoundException();
         }
-        $action = $route['action'];
+
         $controller = new $controllerClass();
+
         if (!method_exists($controller, $action)) {
-            Response::status(404);
-            exit("Метод $controllerClass $action не знайдено");
+            throw new HttpNotFoundException();
         }
+
         $controller->$action();
     }
 }

@@ -1,37 +1,32 @@
 <?php
 
 namespace app\controllers;
-use app\core\Session;
+use app\core\View;
 use app\models\ClassModel;
 use app\models\UserClassModel;
+use app\controllers\BaseClassController;
 
-class ClassController
+class ClassController extends BaseClassController
 {
-    protected $UserClassModel;
-    protected $ClassModel;
+    protected UserClassModel $UserClassModel;
+
+    protected View $View;
     public function __construct()
     {
+        parent::__construct();
         $this->UserClassModel = new UserClassModel();
-        $this->ClassModel = new ClassModel();
-    }
-    //TODO JS?
-    public function showCreate ()
-    {
 
-    }
-    //TODO API?
-    public function add (string $name, $ownerId)
-    {
-        //TODO link
-        $newClassId = $this->ClassModel->add($name, 'link5', $ownerId);
-        $this->UserClassModel->add($ownerId, $newClassId);
-        echo 'Created';
+        $this->View = new View();
     }
 
-    public static function createLink(int $classId): string
-    {
-        //TODO Validate
-        return '/class/join/?id=' . $classId;
+    public function index()
+    {     
+        $this->View->render('index_myGroups', [
+            'title' => 'Мої групи',
+            'user_id' => $this->userId,
+            'ownedClasses' => $this->ClassService->getOwner(),
+            'memberClasses' => $this->ClassService->getMember(),
+        ]);
     }
 
     /**
@@ -60,10 +55,11 @@ class ClassController
             //TODO Debug
             // $userId = Session::getSession('user_id');
             $userId = 1;
-            $this->UserClassModel->add($userId,$classId);
+            $this->UserClassModel->add($userId, $classId);
             //TODO Redirect to class Page
             echo 'Вітаємо в групі';
             exit();
         }
     }
 }
+

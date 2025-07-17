@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-Database::getInstance()->query("
+DataBase::getInstance()->query("
     CREATE TABLE IF NOT EXISTS users (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         login VARCHAR(20) NOT NULL UNIQUE,
