@@ -3,40 +3,48 @@ body {
     font-family: Arial, sans-serif;
     background: #f2f2f2;
 }
+
 header {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 20px;
 }
+
 main {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 40px;
+    position: relative;
 }
+
 .left-block {
     flex: 1;
     display: flex;
     justify-content: start;
     align-items: flex-start;
 }
+
 .logo {
     width: 150px;
     cursor: pointer;
 }
+
 .form-block {
     flex: 1;
     max-width: 400px;
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .form-block form {
     display: flex;
     flex-direction: column;
 }
+
 .form-block input {
     width: 100%;
     padding: 8px;
@@ -44,6 +52,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .form-block button {
     width: 100%;
     padding: 10px;
@@ -55,26 +64,41 @@ main {
     border-radius: 5px;
     cursor: pointer;
 }
+
 .form-block button:hover {
     background-color: #555;
 }
+
 .register-btn {
     background-color: #007bff;
     color: white;
     margin-bottom: 20px;
 }
+
 footer {
     text-align: center;
     background-color: #ddd;
     padding: 20px;
 }
+
 .centered-main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 40px;
 }
+
 .centered-main .form-block {
     width: 100%;
     max-width: 500px;
+}
+
+.form-group-create {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 200px);
+}
+
+.hide {
+    display: none;
 }
