@@ -11,14 +11,14 @@
                     <li><a href="#"><?= $class['name'] ?></a></li>
                 <?php endforeach; ?>
             </ul>
-            <button type="button" onclick="location.href='index_inviteToGroup_page.php'">Запросити до групи</button>
-            <button type="button" onclick="location.href='index_createGroup_page.php'">Створити групу</button>
+            <button type="button" class="group-invite" onclick="location.href='index_inviteToGroup_page.php'">Запросити до групи</button>
+            <button type="button" class="group-create" onclick="location.href='/class/create'">Створити групу</button>
         </form>
         <br><br>
         <form>
             <h2>Групи учень</h2>
             <ul>
-                <?php foreach ($studyClasses as $class): ?>
+                <?php foreach ($memberClasses as $class): ?>
                     <li><a href="#"><?= $class['name'] ?></a></li>
                 <?php endforeach; ?>
             </ul>
