@@ -64,6 +64,11 @@ class Route
             'controller' => 'Index',
             'action' => 'myGroups',
         ],
+        '/submission' => [
+            'method' => 'GET',
+            'controller' => 'Submission',
+            'action' => 'all',
+        ],
     ];
     /**
      * Default controller
