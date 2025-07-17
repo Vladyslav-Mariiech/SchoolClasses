@@ -29,9 +29,16 @@ class SubmissionModel extends BaseModel
         return $this->db->query($stmt, 'i', [$id]);
     }
 
+    /**
+     * @param int $assignment_id
+     * @param string $path
+     * @param int $userId
+     * @param int $grade
+     * @return bool
+     */
     public function store(int $assignment_id, string $path, int $userId, int $grade = 0): bool
     {
-        $stmt = "INSERT INTO submissions (assignment_id, due_date, path, user_id, grade) VALUES(?, NOW(),?, ?, ?)";
+        $stmt = "INSERT INTO submissions (assignment_id, submission_date, path, user_id, grade) VALUES(?, NOW(),?, ?, 0)";
         return $this->db->query($stmt,'isii', [$assignment_id, $path, $userId, $grade]);
 
     }
