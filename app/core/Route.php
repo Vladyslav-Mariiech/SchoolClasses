@@ -26,9 +26,9 @@ class Route
             'action' => 'join',
         ],
         '/class/add' => [
-            'method' => 'GET',
-            'controller' => 'Class',
-            'action' => 'add',
+            'method' => 'POST',
+            'controller' => 'ClassApi',
+            'action' => 'create',
         ],
         '/class' => [
             'method' => 'GET',
@@ -73,10 +73,10 @@ class Route
 
     public function __construct()
     {
-        try{
+        try {
             $this->init();
         } catch (HttpException $e) {
-            exit ($e->getMessage());
+            exit($e->getMessage());
         }
 
     }
