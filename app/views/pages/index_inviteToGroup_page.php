@@ -1,0 +1,22 @@
+<header>
+    <h1>Запрошення до групи</h1>
+</header>
+<main>
+    <div class="form-block">
+        <form>
+            <label>
+                Логін користувача: <br>
+                <input type="text" name="login">
+            </label><br>
+            <label>
+                Посилання на групу: <br>
+                <input type="text" name="link">
+            </label><br><br>
+            <button type="submit">ОК</button>
+            <button type="button" onclick="location.href='index_myGroups_page.php'">Відмінити</button>
+        </form>
+    </div>
+</main>
+<footer>
+    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
+</footer>
