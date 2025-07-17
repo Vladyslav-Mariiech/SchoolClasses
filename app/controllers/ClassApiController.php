@@ -11,7 +11,7 @@ class ClassApiController extends BaseClassController
 
     public function all()
     {
-        $allClasses = $this->ClassService->getOwner();
+        $allClasses = $this->ClassService->getAll();
         header('Content-Type: application/json');
         echo json_encode($allClasses);
     }
@@ -23,7 +23,16 @@ class ClassApiController extends BaseClassController
         $link = $this->createUniqueId($name);
         $ownerId = $this->userId;
         //TODO Exeptions
-        $this->ClassModel->add($name, $link, $ownerId);
-        //TODO response
+        $classId = $this->ClassModel->add($name, $link, $ownerId);
+        if (is_int($classId)) {
+            $this->UserClassModel->add($ownerId, $classId);
+            echo 'group added';
+        } else {
+            //TODO Exeptions handler
+            //TODO response
+            header('Content-Type: application/json');
+            http_response_code(422);
+            echo '{"error": "Виникла помилка при записі"}';
+        }
     }
 }

@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <script src="/js/main.js"></script>
     <?php include_once $this->getViewPath($viewName); ?>
 </body>
 

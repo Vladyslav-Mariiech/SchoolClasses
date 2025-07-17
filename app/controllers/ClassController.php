@@ -2,25 +2,21 @@
 
 namespace app\controllers;
 use app\core\View;
-use app\models\ClassModel;
-use app\models\UserClassModel;
 use app\controllers\BaseClassController;
 
 class ClassController extends BaseClassController
 {
-    protected UserClassModel $UserClassModel;
+
 
     protected View $View;
     public function __construct()
     {
         parent::__construct();
-        $this->UserClassModel = new UserClassModel();
-
         $this->View = new View();
     }
 
     public function index()
-    {     
+    {
         $this->View->render('index_myGroups', [
             'title' => 'Мої групи',
             'user_id' => $this->userId,

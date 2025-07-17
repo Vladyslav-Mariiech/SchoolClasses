@@ -34,6 +34,11 @@ class Route
             'method' => 'GET',
             'controller' => 'Class',
         ],
+        '/class/all' => [
+            'method' => 'GET',
+            'controller' => 'ClassApi',
+            'action' => 'all',
+        ],
         '/index/registerPage' => [
             'method' => 'GET',
             'controller' => 'Index',
