@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\core\Session;
 use app\core\View;
 use app\models\AssignmentsModel;
 
@@ -23,8 +24,11 @@ class AssignmentsController
      */
     public function index(): void
     {
-        $assignments = $this->assignmentsModel->all();
-        $this->view->render('index_groupWhereTeacher', ['assignments' => $assignments]);
+        $login = Session::getSession('user_login');
+        $ownerId = Session::getSession('user_id');
+        //TODO add errors or redirect
+        $assignments = $this->assignmentsModel->all($ownerId);
+        $this->view->render('index_groupWhereTeacher', ['assignments' => $assignments, 'login' => $login]);
     }
 
 }
