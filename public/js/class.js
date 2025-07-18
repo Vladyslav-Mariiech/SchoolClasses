@@ -1,21 +1,7 @@
 const groupForm = document.getElementById('group-create-form');
 
-function createGroupShow() {
-    const createBtn = document.querySelector('button.group-create-btn');
-    createBtn.addEventListener('click', function () {
-        document.querySelector('div.form-group-create').classList.remove('hide');
-    });
-}
-
-function createGroupHide() {
-    const hideBtn = document.querySelector('div.form-group-create button[type="reset"]');
-    hideBtn.addEventListener('click', function () {
-        document.querySelector('div.form-group-create').classList.add('hide');
-    });
-}
-
 function createGroup() {
-    sendFormData(groupForm, '/class/add', function (error, data) {
+    sendFormData(groupForm, '/api/class/add', function (error, data) {
         if (error) {
             alert(error);
         } else {
@@ -28,7 +14,7 @@ function createGroup() {
 }
 
 function getGroups() {
-    ajaxRequest('/class/all', 'GET', null, function (error, data) {
+    ajaxRequest('/api/class/all', 'GET', null, function (error, data) {
         fillGroups(data);
     });
 }
@@ -53,6 +39,48 @@ function fillGroups(groups) {
     }
 }
 
-createGroupShow();
-createGroupHide();
-createGroup();
+function inviteGroup() {
+    ajaxRequest('/api/class/owned', 'GET', null, function (error, data) {
+        const groupsContainer = document.querySelector('.invite-section-groups');
+        let html = '';
+        for (let group of data) {
+            html += `<div class="invite-section-groups-group"><a data-group-uid=${group['link']} href="">${group['name']}</a></div>`;
+        }
+        groupsContainer.innerHTML = html;
+        groupsContainer.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                document.querySelector('.invite-close-btn').click();
+                const link = e.target.dataset.groupUid;
+                const domain = window.location.hostname;
+                document.querySelector('.invite-link-popup-content').innerText = `${domain}/api/class/invite/?id=${link}`;
+                const inviteLinkPopup = document.querySelector('.invite-link-popup');
+                inviteLinkPopup.classList.remove('hide');
+                document.querySelector('.link-close-btn').addEventListener('click', () => {
+                    inviteLinkPopup.classList.add('hide');
+                })
+            }
+        });
+
+    });
+
+}
+
+function init() {
+    const createGroupBtn = document.querySelector('button.group-create-btn');
+    const groupPopup = document.querySelector('div.form-group-create');
+    const hideFormBtn = document.querySelector('div.form-group-create button[type="reset"]');
+    showPopup(createGroupBtn, groupPopup);
+    hidePopup(hideFormBtn, groupPopup);
+
+    const invitePopup = document.querySelector('.group-invite-popup');
+    const inviteBtn = document.querySelector('.group-invite-btn');
+    const hideInviteBtn = document.querySelector('.invite-close-btn');
+    showPopup(inviteBtn, invitePopup, () => {
+        inviteGroup();
+    });
+    hidePopup(hideInviteBtn, invitePopup);
+    createGroup();
+}
+
+init();

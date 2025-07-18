@@ -1,7 +1,8 @@
 function ajaxRequest(url, method, data, callback) {
     fetch(url, {
         method: method,
-        body: data
+        body: data,
+        credentials: 'same-origin'
     })
         .then(function (response) {
             if (!response.ok) {
@@ -33,5 +34,20 @@ function sendFormData(form, url, callback) {
         e.preventDefault();
         const formData = new FormData(form);
         ajaxRequest(url, 'POST', formData, callback);
+    });
+}
+
+function showPopup(btn, popUp, callback = null) {
+    btn.addEventListener('click', function () {
+        popUp.classList.remove('hide');
+        if (callback){
+            callback();
+        }
+    });
+}
+
+function hidePopup(btn, popUp) {
+    btn.addEventListener('click', function () {
+        popUp.classList.add('hide');
     });
 }
