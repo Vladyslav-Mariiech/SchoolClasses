@@ -7,6 +7,18 @@
             <button type="submit">Logout</button>
         </form>
     </div>
+    <div class="group-invite-popup popup hide">
+        <div class="invite-close-btn close-btn">Х</div>
+        <div class="invite-section">
+            <h3 class="invite-section-title">Запросити до групи</h3>
+            <div class="invite-section-groups">
+            </div>
+        </div>
+    </div>
+    <div class="invite-link-popup popup hide">
+        <h3 class="invite-link-title">Скопіюйте посилання для запрошення в групу</h3>
+        <div class="invite-link-popup-content"></div>
+    </div>
     <div class="form-block">
         <p style="text-align: right;"><strong>Привіт, логін!</strong></p>
         <form>
@@ -15,15 +27,13 @@
                 <tbody>
                     <?php foreach ($ownedClasses as $class): ?>
                         <tr>
-                            <td><a href="/class/show/?id=<?=$class['link']?>"><?= $class['name'] ?></a></td>
+                            <td><a href="/class/show/?id=<?= $class['link'] ?>"><?= $class['name'] ?></a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <button type="button" class="group-invite-btn"
-                onclick="location.href='index_inviteToGroup_page.php'">Запросити до групи</button>
-            <button type="button" class="group-create-btn">Створити
-                групу</button>
+            <button type="button" class="group-invite-btn">Запросити до групи</button>
+            <button type="button" class="group-create-btn">Створити групу</button>
         </form>
         <div class="form-block form-group-create hide">
             <form id="group-create-form">
