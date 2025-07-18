@@ -47,7 +47,7 @@ function inviteGroup() {
             html += `<div class="invite-section-groups-group"><a data-group-uid=${group['link']} href="">${group['name']}</a></div>`;
         }
         groupsContainer.innerHTML = html;
-        groupsContainer.addEventListener('click', function (e) {
+        groupsContainer.onclick = function (e) {
             if (e.target.tagName === 'A') {
                 e.preventDefault();
                 document.querySelector('.invite-close-btn').click();
@@ -56,11 +56,18 @@ function inviteGroup() {
                 document.querySelector('.invite-link-popup-content').innerText = `${domain}/api/class/invite/?id=${link}`;
                 const inviteLinkPopup = document.querySelector('.invite-link-popup');
                 inviteLinkPopup.classList.remove('hide');
-                document.querySelector('.link-close-btn').addEventListener('click', () => {
-                    inviteLinkPopup.classList.add('hide');
-                })
+                // document.querySelector('.link-close-btn').addEventListener('click', () => {
+                //     inviteLinkPopup.classList.add('hide');
+                // });
+                document.body.onclick = function(e){
+                    console.log(e);
+                    if(!inviteLinkPopup.contains(e.target) && e.target.tagName !== 'A'){
+                        inviteLinkPopup.classList.add('hide');
+                        document.body.onclick = undefined;
+                    }
+                };
             }
-        });
+        };
 
     });
 

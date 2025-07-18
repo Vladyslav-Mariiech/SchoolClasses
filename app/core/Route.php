@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\controllers\AuthController;
 use app\exceptions\HttpException;
 use app\exceptions\HttpNotFoundException;
 use app\exceptions\HttpWrongMethodExeption;
@@ -33,6 +34,12 @@ class Route
         '/class' => [
             'method' => 'GET',
             'controller' => 'Class',
+            'preactions' => [
+                [
+                    'class' => AuthController::class,
+                    'method' => 'checkAccess',
+                ],
+            ],
         ],
         '/api/class/all' => [
             'method' => 'GET',
@@ -130,6 +137,16 @@ class Route
             throw new HttpNotFoundException();
         }
 
+        if(isset($route['preactions'])){
+            $this->preactionsCall($route['preactions']);
+        }
+
         $controller->$action();
+    }
+
+    protected function preactionsCall(array $preactions){
+        foreach ($preactions as $preaction){
+            call_user_func($preaction['class'] . '::' . $preaction['method']);
+        }
     }
 }
