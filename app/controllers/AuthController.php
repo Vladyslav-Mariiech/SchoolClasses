@@ -85,7 +85,7 @@ class AuthController
 
     public static function checkAccess(): void {
         if (!\app\core\Session::getSession('user')) {
-            throw new HttpUnauthorizedException();
+            header('Location: /');
         }
     }
 }
