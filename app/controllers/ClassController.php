@@ -20,8 +20,8 @@ class ClassController extends BaseClassController
         $this->View->render('index_myGroups', [
             'title' => 'Мої групи',
             'user_id' => $this->userId,
-            'ownedClasses' => $this->ClassService->getOwner(),
-            'memberClasses' => $this->ClassService->getMember(),
+            'ownedClasses' => $this->ClassService->getOwned(),
+            'memberClasses' => $this->ClassService->getMembered(),
         ]);
     }
 
