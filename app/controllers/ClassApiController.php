@@ -16,6 +16,13 @@ class ClassApiController extends BaseClassController
         echo json_encode($allClasses);
     }
 
+    public function owned()
+    {
+        $ownedClasses = $this->ClassService->getOwned();
+        header('Content-Type: application/json');
+        echo json_encode($ownedClasses);
+    }
+    
     public function create()
     {
         //TODO Validate
