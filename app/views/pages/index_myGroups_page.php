@@ -16,6 +16,7 @@
         </div>
     </div>
     <div class="invite-link-popup popup hide">
+        <div class="link-close-btn close-btn">Х</div>
         <h3 class="invite-link-title">Скопіюйте посилання для запрошення в групу</h3>
         <div class="invite-link-popup-content"></div>
     </div>
