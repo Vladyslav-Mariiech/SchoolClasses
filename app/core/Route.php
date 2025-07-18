@@ -69,6 +69,11 @@ class Route
             'controller' => 'Assignments',
             'action' => 'index',
         ],
+        '/submission' => [
+            'method' => 'GET',
+            'controller' => 'Submission',
+            'action' => 'all',
+        ],
     ];
     /**
      * Default controller

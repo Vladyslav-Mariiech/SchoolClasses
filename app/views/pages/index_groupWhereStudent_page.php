@@ -82,7 +82,7 @@
 
 <main>
     <div class="form-block">
-        <div class="top-right">Привіт, логін!</div>
+        <div class="top-right">Привіт, <?= htmlspecialchars($userLogin ?? 'логін') ?>!</div>
         <h2>Перелік домашніх завдань</h2>
         <form method="post" action="#">
             <table>
@@ -95,55 +95,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>ДЗ №1</td>
-                    <td>
-                        <select name="status1">
-                            <option value="active" selected>Активне</option>
-                            <option value="inactive">Неактивне</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="grade1">
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4" selected>4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="index_handInHomework_page.php" class="download-btn">Здати ДЗ</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ДЗ №2</td>
-                    <td>
-                        <select name="status2">
-                            <option value="active">Активне</option>
-                            <option value="inactive" selected>Неактивне</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="grade2">
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5" selected>5</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="index_handInHomework_page.php" class="download-btn">Здати ДЗ</a>
-                    </td>
-                </tr>
+                <?php if (!empty($submissions)): ?>
+                    <?php foreach ($submissions as $submission): ?>
+                        <tr>
+                            <td>ДЗ №<?= htmlspecialchars($submission['id']) ?></td>
+                            <td><?= htmlspecialchars($submission['status']) ?></td>
+                            <td><?= htmlspecialchars($submission['grade']) ?></td>
+                            <td>
+                                <a href="/index/handInHomeworkPage/?id=<?= $submission['id'] ?>" class="download-btn">Здати ДЗ</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Домашні завдання відсутні.</td>
+                    </tr>
+                <?php endif; ?>
                 </tbody>
             </table>
         </form>
     </div>
 </main>
-
-<footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
-
-</body>
-</html>
