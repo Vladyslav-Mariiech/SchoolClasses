@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <title>Група — Вчитель</title>
-    <style>
+	<meta charset="UTF-8">
+	<title>Група — Вчитель</title>
+	<style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -104,170 +104,62 @@
         .toggle-checkbox:checked + label + .file-select {
             display: block;
         }
-    </style>
+	</style>
 </head>
 <body>
 
 <header>
-    <h1>НАЗВА ГРУПИ, ДЕ КОРИСТУВАЧ ВЧИТЕЛЬ</h1>
+	<h1>НАЗВА ГРУПИ, ДЕ КОРИСТУВАЧ ВЧИТЕЛЬ</h1>
 </header>
 
 <main>
-    <div class="form-block">
-        <div class="top-right">Привіт, логін!</div>
-
-        <h2>Домашнє завдання №1</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Учні</th>
-                <th>Кінцева дата здачі</th>
-                <th>Статус</th>
-                <th>Оцінка</th>
-                <th>Дія</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Учень 1</td>
-                <td><input type="date" name="date1" value="2025-07-02"></td>
-                <td>
-                    <select name="status1">
-                        <option value="pass">Здав</option>
-                        <option value="not pass" selected>Не здав</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="grade1">
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5" selected>5</option>
-                    </select>
-                </td>
-                <td class="download-section1">
-                    <input type="checkbox" id="toggle1" class="toggle-checkbox">
-                    <label for="toggle1" class="download-btn">Завантажити</label>
-                    <div class="file-select">
-                        <select name="file">
-                            <option value="file1.pdf">file1.pdf</option>
-                            <option value="file2.docx">file2.docx</option>
-                            <option value="file3.txt">file3.txt</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Учень 2</td>
-                <td><input type="date" name="date2" value="2025-07-02"></td>
-                <td>
-                    <select name="status2">
-                        <option value="pass">Здав</option>
-                        <option value="not pass" selected>Не здав</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="grade2">
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5" selected>5</option>
-                    </select>
-                </td>
-                <td class="download-section2">
-                    <input type="checkbox" id="toggle2" class="toggle-checkbox">
-                    <label for="toggle2" class="download-btn">Завантажити</label>
-                    <div class="file-select">
-                        <select name="file">
-                            <option value="file1.pdf">file1.pdf</option>
-                            <option value="file2.docx">file2.docx</option>
-                            <option value="file3.txt">file3.txt</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <h2>Домашнє завдання №2</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Учні</th>
-                <th>Кінцева дата здачі</th>
-                <th>Статус</th>
-                <th>Оцінка</th>
-                <th>Дія</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Учень 1</td>
-                <td><input type="date" name="date3" value="2025-07-02"></td>
-                <td>
-                    <select name="status3">
-                        <option value="pass">Здав</option>
-                        <option value="not pass" selected>Не здав</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="grade3">
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5" selected>5</option>
-                    </select>
-                </td>
-                <td class="download-section1">
-                    <input type="checkbox" id="toggle3" class="toggle-checkbox">
-                    <label for="toggle3" class="download-btn">Завантажити</label>
-                    <div class="file-select">
-                        <select name="file">
-                            <option value="file1.pdf">file1.pdf</option>
-                            <option value="file2.docx">file2.docx</option>
-                            <option value="file3.txt">file3.txt</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Учень 2</td>
-                <td><input type="date" name="date4" value="2025-07-02"></td>
-                <td>
-                    <select name="status4">
-                        <option value="pass">Здав</option>
-                        <option value="not pass" selected>Не здав</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="grade4">
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5" selected>5</option>
-                    </select>
-                </td>
-                <td class="download-section">
-                    <input type="checkbox" id="toggle4" class="toggle-checkbox">
-                    <label for="toggle4" class="download-btn">Завантажити</label>
-                    <div class="file-select">
-                        <select name="file">
-                            <option value="file1.pdf">file1.pdf</option>
-                            <option value="file2.docx">file2.docx</option>
-                            <option value="file3.txt">file3.txt</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <button class="create-btn" onclick="location.href='index_createHomeWork_page.php'">Створити Домашнє завдання</button>
-    </div>
+	<div class="form-block">
+		<div class="top-right">Привіт, <?=$login?>!</div>
+		<h2>Домашнє завдання</h2>
+		<table>
+			<thead>
+			<tr>
+				<th>Учні</th>
+				<th>Кінцева дата здачі</th>
+				<th>Статус</th>
+				<th>Оцінка</th>
+				<th>Файл</th>
+			</tr>
+			</thead>
+			<tbody>
+            <?php foreach ($assignments as $row): ?>
+				<tr>
+					<td><?= $row['user_login'] ?></td>
+					<td><?= date('Y-m-d', strtotime($row['due_date'])) ?></td>
+					<td><?= $row['submission_status'] === 'Passed' ? 'Здав' : 'Не здав' ?></td>
+					<td>
+						<label>
+							<select name="grade[<?= $row['assignment_id'] ?>][<?= $row['user_id'] ?>]">
+								<option value="" disabled <?= $row['grade'] === null ? 'selected' : '' ?>>Оцінка</option>
+                                <?php foreach ([1, 2, 3, 4, 5] as $grade): ?>
+									<option value="<?= $grade ?>" <?= $row['grade'] == $grade ? 'selected' : '' ?>>
+                                        <?= $grade ?>
+									</option>
+                                <?php endforeach; ?>
+							</select>
+						</label>
+					</td>
+					<td>
+                        <?php if (!empty($row['submission_file'])): ?>
+							<a class="download-btn" href="/uploads/<?= urlencode($row['submission_file']) ?>" download>Завантажити</a>
+                        <?php else: ?>
+							Немає файлу
+                        <?php endif; ?>
+					</td>
+				</tr>
+            <?php endforeach; ?>
+			</tbody>
+		</table>
+		<button class="create-btn" onclick="location.href='index_createHomeWork_page.php'">Створити Домашнє завдання</button>
+	</div>
 </main>
-
 <footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
+	<p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
 </footer>
 
 </body>
