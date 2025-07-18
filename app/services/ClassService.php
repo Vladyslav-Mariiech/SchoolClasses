@@ -40,11 +40,11 @@ class ClassService
     {
         return $this->all;
     }
-    public function getOwner():array
+    public function getOwned():array
     {
         return $this->all['owner'];
     }
-    public function getMember(): array
+    public function getMembered(): array
     {
         return $this->all['member'];
     }
