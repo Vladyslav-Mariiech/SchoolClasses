@@ -25,7 +25,7 @@ class Route
             'controller' => 'Class',
             'action' => 'join',
         ],
-        '/class/add' => [
+        '/api/class/add' => [
             'method' => 'POST',
             'controller' => 'ClassApi',
             'action' => 'create',
@@ -34,10 +34,15 @@ class Route
             'method' => 'GET',
             'controller' => 'Class',
         ],
-        '/class/all' => [
+        '/api/class/all' => [
             'method' => 'GET',
             'controller' => 'ClassApi',
             'action' => 'all',
+        ],
+        '/api/class/owned' => [
+            'method' => 'GET',
+            'controller' => 'ClassApi',
+            'action' => 'owned',
         ],
         '/index/registerPage' => [
             'method' => 'GET',
