@@ -6,10 +6,25 @@ use app\core\DataBase;
 
 class MigrationManager
 {
+    /**
+     * @var \app\core\DataBase
+     */
     private DataBase $db;
+
+    /**
+     * @var \mysqli
+     */
     private \mysqli $conn;
+
+    /**
+     * @var string
+     */
     private string $migrationsPath;
 
+    /**
+     * MigrationManager constructor.
+     * @param string $migrationsPath
+     */
     public function __construct(string $migrationsPath)
     {
         $this->db = DataBase::getInstance();
@@ -17,6 +32,10 @@ class MigrationManager
         $this->migrationsPath = $migrationsPath;
     }
 
+    /**
+     * Runs the migrations that have not been applied yet.
+     * @return void
+     */
     public function migrate(): void
     {
         $this->createMigrationsTable();
@@ -36,6 +55,10 @@ class MigrationManager
         }
     }
 
+    /**
+     * Creates the migrations table if it does not exist.
+     * @return void
+     */
     private function createMigrationsTable(): void
     {
         $sql = "CREATE TABLE IF NOT EXISTS migrations (
@@ -45,6 +68,10 @@ class MigrationManager
         $this->conn->query($sql);
     }
 
+    /**
+     * Return the list of applied migrations from the database.
+     * @return array
+     */
     private function getAppliedMigrations(): array
     {
         $result = $this->conn->query("SELECT migration FROM migrations");

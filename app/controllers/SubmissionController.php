@@ -19,7 +19,7 @@ class SubmissionController
     protected SubmissionModel $submissionModel;
 
     /**
-     *
+     * SubmissionController constructor.
      */
     public function __construct()
     {
@@ -28,6 +28,7 @@ class SubmissionController
     }
 
     /**
+     * Show all submissions for the current user.
      * @return void
      */
     public function all(): void
@@ -43,6 +44,7 @@ class SubmissionController
     }
 
     /**
+     * Store a new submission.
      * @return void
      */
     public function store(): void

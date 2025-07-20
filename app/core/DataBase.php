@@ -47,7 +47,7 @@ class DataBase
      *
      * @return self
      */
-    public static function getInstance(): Database
+    public static function getInstance(): DataBase
     {
         if (is_null(self::$instance)) {
             self::$instance = new self();
@@ -122,6 +122,7 @@ class DataBase
     }
 
     /**
+     * Returns the current mysqli connection instance.
      * @return mysqli
      */
     public function getConnection(): mysqli

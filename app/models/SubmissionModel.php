@@ -5,6 +5,7 @@ namespace app\models;
 class SubmissionModel extends BaseModel
 {
     /**
+     * Get all submissions.
      * @return array
      */
     public function all(): array
@@ -13,6 +14,7 @@ class SubmissionModel extends BaseModel
     }
 
     /**
+     * Get submissions by user.
      * @param int $id
      * @return array
      */
@@ -36,6 +38,7 @@ class SubmissionModel extends BaseModel
     }
 
     /**
+     * Store a new submission for a user.
      * @param int $assignment_id
      * @param string $path
      * @param int $userId
@@ -46,10 +49,10 @@ class SubmissionModel extends BaseModel
     {
         $stmt = "INSERT INTO submissions (assignment_id, submission_date, path, user_id, grade) VALUES(?, NOW(),?, ?, 0)";
         return $this->db->query($stmt,'isii', [$assignment_id, $path, $userId, $grade]);
-
     }
 
     /**
+     * Update the grade for a submission.
      * @param int $assignmentId
      * @param int $userId
      * @param int $grade
@@ -60,5 +63,4 @@ class SubmissionModel extends BaseModel
         $stmt = "UPDATE submissions SET grade = ? WHERE assignment_id = ? AND user_id = ?";
         return $this->db->query($stmt, 'iii', [$grade, $assignmentId, $userId]);
     }
-
 }

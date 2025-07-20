@@ -8,11 +8,18 @@ class AssignmentAPIController
 {
     protected SubmissionModel $submissionModel;
 
+    /**
+     * AssignmentAPIController constructor.
+     */
     public function __construct()
     {
         $this->submissionModel = new SubmissionModel();
     }
 
+    /**
+     * Updates the grade for a submission.
+     * @return void
+     */
     public function update(): void
     {
         $assignmentId = $_POST['assignment_id'];
