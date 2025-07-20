@@ -70,7 +70,7 @@ class DataBase
     }
 
     /**
-     * Executes a prepared SQL query with parameters.
+     * Executes a prepared SQL DML - query: INSERT/UPDATE/DELETE/SELECT with parameters.
      * @param string $query
      * @param string $types
      * @param array $params
@@ -83,11 +83,9 @@ class DataBase
             exit($this->errors['prepare'] . $this->connector->error);
         }
 
-        if ($params) {
-            if (!$stmt->bind_param($types, ...$params)) {
-                $stmt->close();
-                exit($this->errors['bind_param'] . $stmt->error);
-            }
+        if (!$stmt->bind_param($types, ...$params)) {
+            $stmt->close();
+            exit($this->errors['bind_param'] . $stmt->error);
         }
 
         if (!$stmt->execute()) {
@@ -98,17 +96,28 @@ class DataBase
 
         if (preg_match('/^\s*SELECT/i', $query)) {
             $result = $stmt->get_result();
-            if (!$result) {
-                $stmt->close();
-                return [];
-            }
-
-            $data = $result->fetch_all(MYSQLI_ASSOC);
+            $data = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
             $stmt->close();
             return $data;
         }
 
         $stmt->close();
+        return true;
+    }
+
+    /**
+     * Executes a prepared SQL DDL - query: ALTER/CREATE/DROP etc.
+     * @param string $query
+     * @return bool
+     */
+    public function executeDDL(string $query): bool
+    {
+        $result = $this->connector->query($query);
+
+        if ($result === false) {
+            exit($this->errors['execute'] . $this->connector->error);
+        }
+
         return true;
     }
 
