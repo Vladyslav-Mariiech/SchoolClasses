@@ -86,6 +86,11 @@ class Route
             'controller' => 'Submission',
             'action' => 'all',
         ],
+        '/api/grade/update' => [
+            'method' => 'POST',
+            'controller' => 'AssignmentAPI',
+            'action' => 'update',
+        ],
     ];
     /**
      * Default controller
