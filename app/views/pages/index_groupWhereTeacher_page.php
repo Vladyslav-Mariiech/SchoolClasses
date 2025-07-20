@@ -119,6 +119,7 @@
 		<table>
 			<thead>
 			<tr>
+                <th>№ ДЗ</th>
 				<th>Учні</th>
 				<th>Кінцева дата здачі</th>
 				<th>Статус</th>
@@ -129,12 +130,13 @@
 			<tbody>
             <?php foreach ($assignments as $row): ?>
 				<tr>
+                    <td><?= $row['assignment_id']?></td>
 					<td><?= $row['user_login'] ?></td>
 					<td><?= date('Y-m-d', strtotime($row['due_date'])) ?></td>
 					<td><?= $row['submission_status'] === 'Passed' ? 'Здав' : 'Не здав' ?></td>
 					<td>
 						<label>
-							<select name="grade[<?= $row['assignment_id'] ?>][<?= $row['user_id'] ?>]">
+							<select class="grade-select" name="grade[<?= $row['assignment_id'] ?>][<?= $row['user_id'] ?>]" id="grades" data-user-id="<?= $row['user_id']?>" data-assignment-id="<?= $row['assignment_id']?>">
 								<option value="" disabled <?= $row['grade'] === null ? 'selected' : '' ?>>Оцінка</option>
                                 <?php foreach ([1, 2, 3, 4, 5] as $grade): ?>
 									<option value="<?= $grade ?>" <?= $row['grade'] == $grade ? 'selected' : '' ?>>
@@ -161,6 +163,6 @@
 <footer>
 	<p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
 </footer>
-
+<script src="/js/grade.js"></script>
 </body>
 </html>

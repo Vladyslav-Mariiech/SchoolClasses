@@ -102,7 +102,19 @@
                             <td><?= htmlspecialchars($submission['status']) ?></td>
                             <td><?= htmlspecialchars($submission['grade']) ?></td>
                             <td>
-                                <a href="/index/handInHomeworkPage/?id=<?= $submission['id'] ?>" class="download-btn">Здати ДЗ</a>
+                                <?php if (empty($submission['path'])): ?>
+                                    <a href="/index/handInHomeworkPage/?id=<?= $submission['id'] ?>" class="download-btn">Здати ДЗ</a>
+                                <?php else: ?>
+                                    <?php if (!is_null($submission['grade'])): ?>
+                                        <?php if ($submission['grade'] > 2): ?>
+                                            <div>Зараховано</div>
+                                        <?php else: ?>
+                                            <div>Не зараховано</div>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <div>Завантажено</div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
