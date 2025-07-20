@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
 CREATE OR REPLACE VIEW teacher_assignments_view AS
 SELECT
     classes.id AS class_id,
@@ -26,6 +26,7 @@ LEFT JOIN users ON users.id = users_classes.user_id
 LEFT JOIN assignments ON assignments.class_id = classes.id
 LEFT JOIN submissions
     ON submissions.assignment_id = assignments.id
-    AND submissions.user_id = users.id;
+    AND submissions.user_id = users.id
+WHERE classes.owner_id <> users.id;
 ");
 
