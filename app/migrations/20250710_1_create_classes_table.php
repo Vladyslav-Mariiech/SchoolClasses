@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     CREATE TABLE IF NOT EXISTS classes (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,

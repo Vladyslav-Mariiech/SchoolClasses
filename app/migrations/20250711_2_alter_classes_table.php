@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     ALTER TABLE classes 
     ADD COLUMN owner_id BIGINT UNSIGNED NOT NULL;
 ");

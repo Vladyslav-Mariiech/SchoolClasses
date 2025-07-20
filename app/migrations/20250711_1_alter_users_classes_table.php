@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     ALTER TABLE users_classes 
     DROP FOREIGN KEY fk_users_classes_owner_id; 
 ");

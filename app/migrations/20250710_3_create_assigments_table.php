@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     CREATE TABLE IF NOT EXISTS assignments (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         due_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 

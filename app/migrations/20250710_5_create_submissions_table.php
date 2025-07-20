@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     CREATE TABLE IF NOT EXISTS submissions (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         assignment_id BIGINT UNSIGNED NOT NULL,

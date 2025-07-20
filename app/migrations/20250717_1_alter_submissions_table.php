@@ -2,7 +2,7 @@
 
 use app\core\DataBase;
 
-DataBase::getInstance()->query("
+DataBase::getInstance()->executeDDL("
     ALTER TABLE submissions DROP CHECK submissions_chk_1;
 ");
 
