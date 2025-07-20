@@ -18,14 +18,20 @@ class SubmissionModel extends BaseModel
      */
     public function getByUserId(int $id): array
     {
-        $stmt ="SELECT sbmsns.id, asnmts.due_date,sbmsns.grade, 
+        $stmt ="SELECT assignments.id, assignments.due_date, 
+                CASE WHEN ISNULL(submissions.grade) = 1 THEN '-' ELSE submissions.grade END AS grade, 
                 CASE 
-                    WHEN asnmts.due_date >= NOW() THEN 'Active'
+                    WHEN assignments.due_date >= NOW() THEN 'Active'
                     ELSE 'Expired'
-                END AS status
-            FROM submissions sbmsns 
-            INNER JOIN assignments asnmts ON sbmsns.assignment_id = asnmts.id
-            WHERE user_id = ?";
+                END AS status, submissions.path 
+            FROM assignments
+            INNER JOIN classes ON assignments.class_id = classes.id
+            INNER JOIN users_classes ON users_classes.class_id = classes.id
+            LEFT JOIN submissions 
+                ON submissions.assignment_id = assignments.id 
+                AND submissions.user_id = users_classes.user_id 
+            WHERE users_classes.user_id = ?
+            ORDER BY assignments.due_date;";
         return $this->db->query($stmt, 'i', [$id]);
     }
 
