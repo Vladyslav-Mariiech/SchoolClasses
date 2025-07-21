@@ -21,7 +21,7 @@
         <div class="invite-link-popup-content"></div>
     </div>
     <div class="form-block">
-        <p style="text-align: right;"><strong>Привіт, логін!</strong></p>
+        <p style="text-align: right;"><strong>Привіт, <?= $login ?>!</strong></p>
         <form>
             <h2>Групи вчитель</h2>
             <table id="teacher-group">
