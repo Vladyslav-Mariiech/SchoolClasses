@@ -82,7 +82,7 @@
 
 <main>
     <div class="form-block">
-        <div class="top-right">Привіт, <?= htmlspecialchars($userLogin ?? 'логін') ?>!</div>
+        <div class="top-right">Привіт, <?= $login ?>!</div>
         <h2>Перелік домашніх завдань</h2>
         <form method="post" action="#">
             <table>
