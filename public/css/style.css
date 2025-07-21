@@ -207,3 +207,7 @@ th {
 .invite-link-popup {
     z-index: 10;
 }
+input.error-input {
+    border: 1px solid #d00;
+    background-color: #fff6f6;
+}
