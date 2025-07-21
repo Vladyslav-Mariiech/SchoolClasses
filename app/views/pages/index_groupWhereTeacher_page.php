@@ -157,7 +157,7 @@
             <?php endforeach; ?>
 			</tbody>
 		</table>
-		<button class="create-btn" onclick="location.href='index_createHomeWork_page.php'">Створити Домашнє завдання</button>
+		<button class="create-btn" onclick="location.href='/assignments/create'">Створити Домашнє завдання</button>
 	</div>
 </main>
 <footer>
