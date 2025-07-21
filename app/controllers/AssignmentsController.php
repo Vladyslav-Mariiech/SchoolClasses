@@ -28,8 +28,6 @@ class AssignmentsController
     {
         $login = AuthService::user()['login'];
         $ownerId = AuthService::userId();
-        var_dump($ownerId);
-        //TODO add errors or redirect
         $assignments = $this->assignmentsModel->all($ownerId);
         $this->view->render('index_groupWhereTeacher', [
                 'assignments' => $assignments,
