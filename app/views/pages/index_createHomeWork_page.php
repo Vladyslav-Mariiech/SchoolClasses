@@ -100,25 +100,29 @@
 </header>
 
 <main>
-    <form class="form-container" method="post" action="#">
+    <form class="form-container" method="post" action="/assignments/store" enctype="multipart/form-data">
+		<?php if(!empty($errors)):?><div><?=$errors?></div><?php endif;?>
         <div class="form-group">
             <label for="deadline">Дедлайн</label>
             <input type="date" id="deadline" name="deadline" required>
         </div>
-
-        <div class="form-group">
+		<div class="form-group">
+			<label for="class">Клас</label>
+			<select id="class" name="class_id" required>
+				<option value="">-- Виберіть клас --</option>
+                <?php foreach ($classes as $class): ?>
+					<option value="<?= $class['id'] ?>"><?= $class['name'] ?></option>
+                <?php endforeach; ?>
+			</select>
+		</div>
+		<div class="form-group">
             <label for="file">Прикріпити файл</label>
-            <select id="file" name="file">
-                <option value="">-- Виберіть файл --</option>
-                <option value="file1.pdf">file1.pdf</option>
-                <option value="file2.docx">file2.docx</option>
-                <option value="file3.txt">file3.txt</option>
-            </select>
+			<input type="file" name="file">
         </div>
 
         <div class="buttons">
             <button type="submit" class="ok-btn">ОК</button>
-            <button type="button" onclick="location.href='index_GroupWhereTeacher_page.php'">Відмінити</button>
+            <button type="button" onclick="location.href='/assignments/index'">Відмінити</button>
         </div>
     </form>
 </main>
