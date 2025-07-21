@@ -56,10 +56,10 @@ class Route
             'controller' => 'Index',
             'action' => 'register',
         ],
-        '/auth/register' => [
+        '/user/add' => [
             'method' => 'POST',
-            'controller' => 'Auth',
-            'action' => 'register',
+            'controller' => 'User',
+            'action' => 'add',
         ],
         '/auth/login' => [
             'method' => 'POST',
@@ -80,6 +80,16 @@ class Route
             'method' => 'GET',
             'controller' => 'Assignments',
             'action' => 'index',
+        ],
+        '/assignments/create' => [
+            'method' => 'GET',
+            'controller' => 'Assignments',
+            'action' => 'create'
+        ],
+        '/assignments/store' => [
+            'method' => 'POST',
+            'controller' => 'Assignments',
+            'action' => 'store'
         ],
         '/submission' => [
             'method' => 'GET',
