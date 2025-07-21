@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\core\View;
 use app\models\SubmissionModel;
 use app\core\Session;
+use app\services\AuthService;
 
 class SubmissionController
 {
@@ -33,13 +34,15 @@ class SubmissionController
      */
     public function all(): void
     {
-        $userId = 14;
-        //$userId = Session::getSession('user_id');
+        $userId = AuthService::userId();
+        $login = AuthService::user()['login'];
+        var_dump($userId);
         $submission = $this->submissionModel->getByUserId($userId);
         $this->view->render('index_groupWhereStudent',[
             'title'=>'Submissions',
             'submissions'=>$submission,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'login' => $login
         ]);
     }
 
