@@ -20,13 +20,21 @@ class UserModel extends BaseModel
     /**
      * Retrieves a user by login name.
      * @param string $login
-     * @return bool|array
+     * @return bool|array|null
      */
-    public function find(string $login): bool|array
+    public function find(string $login): ?array
     {
-        return $this->db->query("SELECT * FROM users WHERE login = ?",
+        $result = $this->db->query("SELECT * FROM users WHERE login = ?",
         "s", [$login]);
+        if(is_array($result) && !empty($result)){
+            return $result[0];
+        }
 
+        return null;
+    }
+
+    public function findByEmail(string $email){
+        return $this->db->query("SELECT email FROM users WHERE email = ? LIMIT 1", "s", [$email]);
     }
 
 }
