@@ -83,9 +83,11 @@ class DataBase
             exit($this->errors['prepare'] . $this->connector->error);
         }
 
-        if (!$stmt->bind_param($types, ...$params)) {
-            $stmt->close();
-            exit($this->errors['bind_param'] . $stmt->error);
+        if(!empty($types)){
+            if (!$stmt->bind_param($types, ...$params)) {
+                $stmt->close();
+                exit($this->errors['bind_param'] . $stmt->error);
+            }
         }
 
         if (!$stmt->execute()) {
