@@ -22,19 +22,41 @@ class AssignmentsModel extends BaseModel
      * @param string|null $dueDate
      * @return array|bool
      */
-    public function store(int $classId, string $path, ?string $dueDate = null)
+    public function store(int $classId, string $path, ?string $dueDate = null): bool|array
     {
         return $this->db->query("INSERT INTO assignments (class_id, path, due_date) VALUES (?,?,?)",
         "iss", [$classId, $path, $dueDate]);
     }
 
+
     /**
-     * Show class name where user teacher
+     * Retrieves a  class owned by a given user (teacher).
      * @param int $ownerId
-     * @return array|bool
+     * @param int $classId
+     * @return mixed|null
      */
-    public function getTeacherClasses(int $ownerId): array|bool
+    public function getOneClass( int $ownerId, int $classId): mixed
     {
-        return $this->db->query("SELECT id, name FROM classes WHERE owner_id = ?", "i", [$ownerId]);
+        $result = $this->db->query("SELECT id, name FROM classes WHERE owner_id = ? AND id = ?",
+            "ii", [$ownerId, $classId]);
+        if(is_array($result) && !empty($result)){
+            return $result[0];
+        }
+        return null;
     }
+
+    /**
+     * Retrieves all assignments for a  class owned by the given user.
+     * @param int $ownerId
+     * @param int $classId
+     * @return bool|array
+     */
+    public function getAssignmentsForClass(int $ownerId, int $classId): bool|array
+    {
+        $sql = "SELECT * FROM teacher_assignments_view 
+            WHERE owner_id = ? AND class_id = ? 
+            ORDER BY assignment_id, user_id";
+        return $this->db->query($sql, "ii", [$ownerId, $classId]);
+    }
+
 }
