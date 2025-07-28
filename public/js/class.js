@@ -2,12 +2,23 @@ const groupForm = document.getElementById('group-create-form');
 
 function createGroup() {
     sendFormData(groupForm, '/api/class/add', function (error, data) {
+        const message = document.getElementById('group-create-message');
         if (error) {
-            alert(error);
+            message.innerText = error.errors[0];
+            message.style.color = 'red';
         } else {
+            if(data.success){
+                showSuccessPopup(data.success)
+            } else if(data.error){
+                message.innerText = data.error;
+                message.style.color = 'red';
+            }
             groupForm.reset();
-            document.querySelector('div.form-group-create').classList.add('hide');
             getGroups();
+            setTimeout(function (){
+                message.innerText = '';
+                document.querySelector('div.form-group-create').classList.add('hide');
+            }, 500);
         }
     });
 
@@ -72,6 +83,14 @@ function inviteGroup() {
     });
 
 }
+
+/**
+ * Listener for logout user
+ */
+document.getElementById('logout-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('logout-form').submit();
+});
 
 function init() {
     const createGroupBtn = document.querySelector('button.group-create-btn');
