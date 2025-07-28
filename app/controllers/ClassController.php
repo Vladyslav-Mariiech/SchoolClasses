@@ -1,8 +1,11 @@
 <?php
 
 namespace app\controllers;
+use app\core\Redirect;
+use app\core\Session;
 use app\core\View;
 use app\controllers\BaseClassController;
+use app\services\AuthService;
 
 class ClassController extends BaseClassController
 {
@@ -15,13 +18,23 @@ class ClassController extends BaseClassController
         $this->View = new View();
     }
 
-    public function index()
+    /**
+     * Displays the user’s dashboard page with their owned and joined groups.
+     * @return void
+     */
+    public function index(): void
     {
+        $success = Session::pullSession('success');
+        $login = AuthService::user()['login'];
+        $userId = AuthService::userId();
         $this->View->render('index_myGroups', [
             'title' => 'Мої групи',
-            'user_id' => $this->userId,
+            'user_id' => $userId,
+            'login' => $login,
             'ownedClasses' => $this->ClassService->getOwned(),
             'memberClasses' => $this->ClassService->getMembered(),
+            'success' => $success,
+
         ]);
     }
 
@@ -29,32 +42,50 @@ class ClassController extends BaseClassController
      * Show page with a link to join the class
      * @return void
      */
-    public function showInvite()
+    public function showInvite(): void
     {
-        //TODO view Invite Page
-        echo '<button><a href="/class/join/?id=1">Прийняти запрошення в групу</a></button>';
+        $className = Session::pullSession('className');
+        $success = Session::pullSession('success');
+        $error = Session::pullSession('error');
+        $classId = $_GET['id'];
+        if ($classId !== null && empty($className)) {
+            $class = $this->ClassModel->findByLink($classId);
+            if ($class && isset($class['name'])) {
+                $className = $class['name'];
+            }
+        }
+        $this->View->render('index_inviteToGroup',[
+            'classId' => $classId,
+            'error' => $error,
+            'success' => $success,
+            'className' => $className,
+            ]);
     }
 
     /**
      * Join class handler
      * @return void
      */
-    public function join()
+    public function join(): void
     {
-        $classId = $_GET['id'] ?? null;
-
-        if (ctype_digit($classId)) {
-            (int) $classId;
+        $link = $_GET['id'] ?? null;
+        if($link){
+            $class = $this->ClassModel->findByLink($link);
         }
-
-        if ($classId !== null) {
-            //TODO Debug
-            // $userId = Session::getSession('user_id');
-            $userId = 1;
-            $this->UserClassModel->add($userId, $classId);
-            //TODO Redirect to class Page
-            echo 'Вітаємо в групі';
-            exit();
+        if (isset($class['id'])){
+            $classId = (int)$class['id'];
+            $userId = AuthService::userId();
+            $className = $class['name'];
+            Session::setSession('className', $className);
+            if($this->UserClassModel->exists($userId, $classId)){
+                Session::setSession('error', 'Вы уже состоите в этой группе');
+                Redirect::redirect('/api/class/invite?id=' . $link);
+                return;
+            }else{
+                $this->UserClassModel->add($userId, $classId);
+                Session::setSession('success', 'Добро пожаловать в группу ' . $className);
+            }
+            Redirect::redirect('/class/index');
         }
     }
 }
