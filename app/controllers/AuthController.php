@@ -11,8 +11,8 @@ use app\validations\ValidateLogin;
 
 class AuthController
 {
-    protected $UserModel;
-    protected $auth;
+    protected UserModel $UserModel;
+    protected AuthModel $auth;
     protected ValidateLogin $validator;
 
     public function __construct(){
@@ -41,7 +41,7 @@ class AuthController
             if ($user) {
                 AuthService::login($user);
             }
-            Redirect::redirect('/index/myGroupsPage');
+            Redirect::redirect('/class/index');
         }else{
             Session::setSession('errors', ['common' => 'Неверный логин или пароль']);
             Redirect::redirect('/');
