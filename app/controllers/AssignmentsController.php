@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\core\Redirect;
+use app\core\Response;
 use app\core\Session;
 use app\core\View;
 use app\models\AssignmentsModel;
 use app\services\AuthService;
+use app\services\UploadService;
 
 class AssignmentsController
 {
@@ -14,10 +16,13 @@ class AssignmentsController
 
     protected View $view;
 
+    protected UploadService $uploadService;
+
     public function __construct()
     {
         $this->assignmentsModel = new AssignmentsModel();
         $this->view = new View();
+        $this->uploadService = new UploadService();
     }
 
     /**
@@ -28,24 +33,29 @@ class AssignmentsController
     {
         $login = AuthService::user()['login'];
         $ownerId = AuthService::userId();
-        $assignments = $this->assignmentsModel->all($ownerId);
-        $this->view->render('index_groupWhereTeacher', [
+        $classId = $_GET['class_id'];
+        $className = $this->assignmentsModel->getOneClass($ownerId, $classId);
+        $assignments = $this->assignmentsModel->getAssignmentsForClass($ownerId, $classId);
+        $this->view->render('index_groupWhereTeacher',
+            [
                 'assignments' => $assignments,
-                'ownerId' => $ownerId, 'login' => $login,
-                ]);
+                'ownerId' => $ownerId,
+                'login' => $login,
+                'className' => $className,
+            ]);
     }
-
     /**
      * Page with form for create home work
      * @return void
      */
     public function create(): void
     {
-        $errors = Session::getSession('errors');
-        Session::deleteSession('errors');
-        $ownerId = AuthService::userId();
-        $classes = $this->assignmentsModel->getTeacherClasses($ownerId);
-        $this->view->render('index_createHomeWork', ['classes' => $classes, 'errors' => $errors]);
+        $errors = Session::pullSession('errors');
+        $classId = $_GET['class_id'];
+        $this->view->render('index_createHomeWork', [
+            'errors' => $errors,
+            'classId' => $classId,
+            ]);
     }
 
     /**
@@ -56,16 +66,12 @@ class AssignmentsController
     {
         $classId = $_POST['class_id'];
         $deadline = $_POST['deadline'];
-        $file = $_FILES['file']['name'];
-
-        if (!$classId || !$file) {
-            Session::setSession('errors', 'выберете файл и имя класса');
-            Redirect::redirect('/assignments/create');
+        $file = $this->uploadService->uploadedFile('assignment');
+        if(!$file){
+            Redirect::redirect('/assignments/create?class_id=' . $classId);
+            return;
         }
-        // i dont no where redirect
         $this->assignmentsModel->store($classId, $file, $deadline);
-        Redirect::redirect('/assignments/index');
+        Redirect::redirect('/assignments/index?class_id=' . $classId);
     }
-
-
 }
