@@ -2,11 +2,16 @@
 
 namespace app\controllers;
 
+use app\core\Response;
+use app\validations\ValidateNameGroup;
+
 class ClassApiController extends BaseClassController
 {
+    protected $validateName;
     public function __construct()
     {
         parent::__construct();
+        $this->validateName = new ValidateNameGroup();
     }
 
     public function all()
@@ -22,24 +27,32 @@ class ClassApiController extends BaseClassController
         header('Content-Type: application/json');
         echo json_encode($ownedClasses);
     }
-    
-    public function create()
+
+    /**
+     * handler form added new group
+     * @return void
+     */
+    public function create(): void
     {
-        //TODO Validate
+        header('Content-Type: application/json');
         $name = $_POST['name'];
+        $errors = $this->validateName->validate($name);
+
+        if(!empty($errors)){
+            Response::status(422);
+            echo json_encode(['errors' => $errors]);
+            return;
+        }
         $link = $this->createUniqueId($name);
         $ownerId = $this->userId;
-        //TODO Exeptions
         $classId = $this->ClassModel->add($name, $link, $ownerId);
         if (is_int($classId)) {
             $this->UserClassModel->add($ownerId, $classId);
-            echo 'group added';
+            echo json_encode(['success' => 'Группа добавлена']);
         } else {
-            //TODO Exeptions handler
-            //TODO response
             header('Content-Type: application/json');
             http_response_code(422);
-            echo '{"error": "Виникла помилка при записі"}';
+            echo json_encode(['error' => 'Виникла помилка при записі']);
         }
     }
 }
