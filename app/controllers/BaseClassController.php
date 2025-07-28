@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ClassModel;
+use app\services\AuthService;
 use app\services\ClassService;
 use app\core\Session;
 use app\models\UserClassModel;
@@ -17,9 +18,8 @@ class BaseClassController
 
     public function __construct()
     {
-        //TODO Debug
-        // $userId = Session::getSession('user_id');
-        $this->userId = 1;
+        AuthController::checkAccess();
+        $this->userId = AuthService::userId();
         $this->ClassService = new ClassService($this->userId);
         $this->ClassModel = new ClassModel();
         $this->UserClassModel = new UserClassModel();
