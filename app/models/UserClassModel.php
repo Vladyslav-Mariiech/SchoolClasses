@@ -59,4 +59,17 @@ class UserClassModel extends BaseModel
 
         return $users;
     }
+
+    /**
+     * Checks if the user is in a class
+     * @param int $userId
+     * @param int $classId
+     * @return bool
+     */
+    public function exists(int $userId, int $classId){
+        $result = $this->db->query("SELECT 1 FROM users_classes WHERE user_id = ? AND class_id = ? LIMIT 1",
+        "ii", [$userId, $classId]);
+
+        return !empty($result);
+    }
 }
