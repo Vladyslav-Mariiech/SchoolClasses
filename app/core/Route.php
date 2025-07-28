@@ -16,7 +16,7 @@ class Route
             'controller' => self::DEFAULT_CONTROLLER,
             'action' => self::DEFAULT_ACTION,
         ],
-        '/class/invite' => [
+        '/api/class/invite' => [
             'method' => 'GET',
             'controller' => 'Class',
             'action' => 'showInvite',
@@ -25,6 +25,11 @@ class Route
             'method' => 'GET',
             'controller' => 'Class',
             'action' => 'join',
+        ],
+        '/class/index' => [
+            'method' => 'GET',
+            'controller' => 'Class',
+            'action' => 'index',
         ],
         '/api/class/add' => [
             'method' => 'POST',
@@ -71,11 +76,6 @@ class Route
             'controller' => 'Auth',
             'action' => 'logout',
         ],
-        '/index/myGroupsPage' => [
-            'method' => 'GET',
-            'controller' => 'Index',
-            'action' => 'myGroups',
-        ],
         '/assignments/index' => [
             'method' => 'GET',
             'controller' => 'Assignments',
@@ -91,16 +91,32 @@ class Route
             'controller' => 'Assignments',
             'action' => 'store'
         ],
-        '/submission' => [
+        '/submission/all' => [
             'method' => 'GET',
             'controller' => 'Submission',
             'action' => 'all',
+        ],
+        '/submission/store' => [
+            'method' => 'GET',
+            'controller' => 'Submission',
+            'action' => 'store',
+        ],
+        '/submission/sendSubmission' => [
+            'method' => 'POST',
+            'controller' => 'Submission',
+            'action' => 'sendSubmission',
+        ],
+        '/submission/downloadFileSubmission' => [
+            'method' => 'GET',
+            'controller' => 'Submission',
+            'action' => 'downloadFileSubmission',
         ],
         '/api/grade/update' => [
             'method' => 'POST',
             'controller' => 'AssignmentAPI',
             'action' => 'update',
         ],
+
     ];
     /**
      * Default controller
