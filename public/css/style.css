@@ -1,3 +1,18 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -210,4 +225,73 @@ th {
 input.error-input {
     border: 1px solid #d00;
     background-color: #fff6f6;
+}
+
+/*message success from session php*/
+#success-message{
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    text-align: center;
+}
+
+/* message success from ajax*/
+#popup-success-message{
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    z-index: 9999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* invite to group*/
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+.agree-or-no-in-group a {
+    text-decoration: none;
+    color: #141613;
+    padding: 8px 12px;
+    display: inline-block;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.agree-or-no-in-group a:hover {
+    background-color: #4f63ff;
+    color: #fefff6;
+}
+.errors{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    color: #e80000;
+    width: 330px;
+    height: 30px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 40%;
 }
