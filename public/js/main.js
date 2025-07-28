@@ -4,18 +4,20 @@ function ajaxRequest(url, method, data, callback) {
         body: data,
         credentials: 'same-origin'
     })
-        .then(function (response) {
-            if (!response.ok) {
-                //TODO Парсимо JSON з помилками
-                throw new Error('Помилка при запиті ' + response.status);
-            }
+        .then(async function (response) {
             const contentType = response.headers.get('Content-Type');
+            let parseData;
             if (contentType && contentType.includes('application/json')) {
-                return response.json();
+                parseData = await response.json();
             } else if (contentType && contentType.includes('text/html')) {
-                return response.text();
+                parseData = await response.text();
+            }else{
+                throw new Error('Невідомий тип даних');
             }
-            throw new Error('Невідомий тип даних');
+            if (!response.ok) {
+                throw parseData;
+            }
+            return parseData;
         })
         .then(function (data) {
             if (callback) {
@@ -51,3 +53,32 @@ function hidePopup(btn, popUp) {
         popUp.classList.add('hide');
     });
 }
+
+/**
+ * show success message from jason
+ * @param message
+ */
+function showSuccessPopup(message) {
+    const popup = document.getElementById('popup-success-message');
+    popup.innerText = message;
+    popup.style.display = 'block';
+    popup.style.opacity = '1';
+
+    setTimeout(function () {
+        popup.style.opacity = '0';
+        setTimeout(function () {
+            popup.style.display = 'none';
+        }, 500);
+    }, 3000);
+}
+
+/**
+ * show success message from session php
+ */
+setTimeout(function () {
+    const msg = document.getElementById('success-message');
+    msg.style.opacity = '0';
+    setTimeout(() => {
+        msg.remove();
+    }, 1000);
+}, 3000);
