@@ -94,35 +94,24 @@
     </style>
 </head>
 <body>
-
 <header>
     <h1>Здати домашнє завдання</h1>
 </header>
-
 <main>
-    <form class="form-container" method="post" action="#">
-
-
-        <div class="form-group">
+	<form class="form-container" method="post" action="/submission/sendSubmission" enctype="multipart/form-data">
+		<input type="hidden" name="assignmentsId" value="<?=$assignmentsId?>">
+		<input type="hidden" name="class_id" value="<?=$classId?>">
+        <?php if(!empty($errors)):?><div class="errors"><?=$errors?></div><?php endif;?>
+		<div class="form-group">
             <label for="file">Прикріпити файл</label>
-            <select id="file" name="file">
-                <option value="">-- Виберіть файл --</option>
-                <option value="file1.pdf">file1.pdf</option>
-                <option value="file2.docx">file2.docx</option>
-                <option value="file3.txt">file3.txt</option>
-            </select>
+			<input type="file" name="file" id="file">
         </div>
 
         <div class="buttons">
             <button type="submit" class="ok-btn">ОК</button>
-            <button type="button" onclick="location.href='index_GroupWhereStudent_page.php'">Відмінити</button>
+            <button type="button" onclick="location.href='/submission/all?class_id=<?=$classId?>'">Відмінити</button>
         </div>
     </form>
 </main>
-
-<footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
-
 </body>
 </html>

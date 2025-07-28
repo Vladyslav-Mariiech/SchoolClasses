@@ -100,21 +100,15 @@
 </header>
 
 <main>
-    <form class="form-container" method="post" action="/assignments/store" enctype="multipart/form-data">
-		<?php if(!empty($errors)):?><div><?=$errors?></div><?php endif;?>
+    <form class="form-container" method="POST" action="/assignments/store" enctype="multipart/form-data">
+		<input type="hidden" name="class_id" value="<?= $classId ?>">
+		<?php if(!empty($errors)):?>
+			<div class="errors"><?=$errors?></div>
+		<?php endif;?>
         <div class="form-group">
             <label for="deadline">Дедлайн</label>
             <input type="date" id="deadline" name="deadline" required>
         </div>
-		<div class="form-group">
-			<label for="class">Клас</label>
-			<select id="class" name="class_id" required>
-				<option value="">-- Виберіть клас --</option>
-                <?php foreach ($classes as $class): ?>
-					<option value="<?= $class['id'] ?>"><?= $class['name'] ?></option>
-                <?php endforeach; ?>
-			</select>
-		</div>
 		<div class="form-group">
             <label for="file">Прикріпити файл</label>
 			<input type="file" name="file">
@@ -122,14 +116,9 @@
 
         <div class="buttons">
             <button type="submit" class="ok-btn">ОК</button>
-            <button type="button" onclick="location.href='/assignments/index'">Відмінити</button>
+            <button type="button" onclick="location.href='/assignments/index?class_id=<?=$classId?>'">Відмінити</button>
         </div>
     </form>
 </main>
-
-<footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
-
 </body>
 </html>

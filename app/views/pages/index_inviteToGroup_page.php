@@ -1,22 +1,19 @@
 <header>
-    <h1>Запрошення до групи</h1>
+	<h1>Вітаємо !</h1>
+    <?php if(!empty($error)):?><div class="errors"><?=$error?></div><?php endif;?>
 </header>
 <main>
-    <div class="form-block">
-        <form>
-            <label>
-                Логін користувача: <br>
-                <input type="text" name="login">
-            </label><br>
-            <label>
-                Посилання на групу: <br>
-                <input type="text" name="link">
-            </label><br><br>
-            <button type="submit">ОК</button>
-            <button type="button" onclick="location.href='index_myGroups_page.php'">Відмінити</button>
-        </form>
-    </div>
+	<div class="box">
+        <?php if ($classId !== null): ?>
+			<div class="agree-or-no-in-group">
+				<h2>Запрошення до групи <i><?=$className?></i></h2>
+				<a href="/class/join/?id=<?=$classId; ?>">Прийняти запрошення в групу</a>
+				<a href="/class/index">Отклонить</a>
+			</div>
+        <?php endif; ?>
+	</div>
 </main>
-<footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
+
+
+
+

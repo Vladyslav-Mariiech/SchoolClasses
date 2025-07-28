@@ -104,14 +104,19 @@
         .toggle-checkbox:checked + label + .file-select {
             display: block;
         }
+		.my-groups{
+			text-decoration: none;
+			color: white;
+			position: absolute;
+			left: 10px;
+		}
 	</style>
 </head>
 <body>
-
 <header>
-	<h1>НАЗВА ГРУПИ, ДЕ КОРИСТУВАЧ ВЧИТЕЛЬ</h1>
+	<a href="/class/index" class="my-groups">My Groups</a>
+	<h1>НАЗВА ГРУПИ <?= $className['name'] ?? 'Not found group or id' ?></h1>
 </header>
-
 <main>
 	<div class="form-block">
 		<div class="top-right">Привіт, <?=$login?>!</div>
@@ -132,12 +137,15 @@
 				<tr>
                     <td><?= $row['assignment_id']?></td>
 					<td><?= $row['user_login'] ?></td>
-					<td><?= date('Y-m-d', strtotime($row['due_date'])) ?></td>
+					<td><?= !empty($row['due_date']) ? date('Y-m-d', strtotime($row['due_date'])) : '—' ?></td>
 					<td><?= $row['submission_status'] === 'Passed' ? 'Здав' : 'Не здав' ?></td>
 					<td>
 						<label>
-							<select class="grade-select" name="grade[<?= $row['assignment_id'] ?>][<?= $row['user_id'] ?>]" id="grades" data-user-id="<?= $row['user_id']?>" data-assignment-id="<?= $row['assignment_id']?>">
-								<option value="" disabled <?= $row['grade'] === null ? 'selected' : '' ?>>Оцінка</option>
+							<select class="grade-select" name="grade[<?= $row['assignment_id'] ?>][<?= $row['user_id'] ?>]"
+									id="grades"
+									data-user-id="<?= $row['user_id']?>"
+									data-assignment-id="<?= $row['assignment_id']?>">
+								<option value="" <?= is_null($row['grade']) ? 'selected' : '' ?> hidden>Оцінити</option>
                                 <?php foreach ([1, 2, 3, 4, 5] as $grade): ?>
 									<option value="<?= $grade ?>" <?= $row['grade'] == $grade ? 'selected' : '' ?>>
                                         <?= $grade ?>
@@ -148,7 +156,9 @@
 					</td>
 					<td>
                         <?php if (!empty($row['submission_file'])): ?>
-							<a class="download-btn" href="/uploads/<?= urlencode($row['submission_file']) ?>" download>Завантажити</a>
+							<a class="download-btn" href="/submission/downloadFileSubmission?file=<?= urlencode($row['submission_file']) ?>">
+								Завантажити
+							</a>
                         <?php else: ?>
 							Немає файлу
                         <?php endif; ?>
@@ -157,12 +167,13 @@
             <?php endforeach; ?>
 			</tbody>
 		</table>
-		<button class="create-btn" onclick="location.href='/assignments/create'">Створити Домашнє завдання</button>
+		<div class="group-info">
+			<button onclick="location.href='/assignments/create?class_id=<?= $className['id'] ?>'">
+				Створити ДЗ
+			</button>
+		</div>
 	</div>
 </main>
-<footer>
-	<p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
 <script src="/js/grade.js"></script>
 </body>
 </html>

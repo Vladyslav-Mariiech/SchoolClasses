@@ -12,5 +12,8 @@
     <script src="/js/main.js"></script>
     <?php include_once $this->getViewPath($viewName); ?>
 </body>
+<footer>
+	<p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
+</footer>
 
 </html>

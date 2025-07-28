@@ -2,11 +2,7 @@
     <h1>МОЇ ГРУПИ</h1>
 </header>
 <main class="centered-main">
-    <div>
-        <form method="post" action="/auth/logout">
-            <button type="submit">Logout</button>
-        </form>
-    </div>
+	<form id="logout-form" method="post" action="/auth/logout" style="display: none;"></form>
     <div class="group-invite-popup popup hide">
         <div class="invite-close-btn close-btn">Х</div>
         <div class="invite-section">
@@ -20,15 +16,25 @@
         <h3 class="invite-link-title">Скопіюйте посилання для запрошення в групу</h3>
         <div class="invite-link-popup-content"></div>
     </div>
+	<p style="text-align: right;">
+		<a href="/" id="logout-link" style="color: black;
+		text-decoration: none; margin-left: 20px;
+		   position: relative;
+		    left: 90%; font-size: 20px;
+		     z-index: 1; font-weight: bold"
+		>Выйти</a>
+	</p>
     <div class="form-block">
-        <p style="text-align: right;"><strong>Привіт, <?= $login ?>!</strong></p>
+		<p style="text-align: right;"><strong>Привіт, <?= $login ?>!</strong></p>
         <form>
             <h2>Групи вчитель</h2>
             <table id="teacher-group">
                 <tbody>
                     <?php foreach ($ownedClasses as $class): ?>
                         <tr>
-                            <td><a href="/class/show/?id=<?= $class['link'] ?>"><?= $class['name'] ?></a></td>
+							<td><a href="/assignments/index?class_id=<?= $class['class_id'] ?>">
+                                    <?=$class['name']?>
+								</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -38,6 +44,7 @@
         </form>
         <div class="form-block form-group-create hide">
             <form id="group-create-form">
+				<div id="group-create-message" style="margin-top: 10px; font-weight: bold;"></div>
                 <label>
                     Назва групи: <br>
                     <input type="text" name="name">
@@ -53,15 +60,22 @@
                 <tbody>
                     <?php foreach ($memberClasses as $class): ?>
                         <tr>
-                            <td><a href="#"><?= $class['name'] ?></a></td>
                         </tr>
+						<td><a href="/submission/all?class_id=<?= $class['class_id'] ?>">
+                                <?=$class['name']?>
+							</a></td>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </form>
     </div>
 </main>
-<footer>
-    <p>Наша школа пропонує сучасне навчання програмуванню, веб-технологіям і проєктному мисленню. Запрошуємо!</p>
-</footer>
+
+<?php if (!empty($success)): ?>
+	<div id="success-message">
+        <?= $success ?>
+	</div>
+<?php endif; ?>
+<div id="popup-success-message">
+</div>
 <script src="/js/class.js"></script>

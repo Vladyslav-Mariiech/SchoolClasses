@@ -72,19 +72,27 @@
             background-color: #ddd;
             padding: 20px;
         }
+		.my-groups{
+			text-decoration: none;
+			color: white;
+			position: absolute;
+			left: 10px;
+		}
     </style>
 </head>
 <body>
 
 <header>
-    <h1>НАЗВА ГРУПИ, ДЕ КОРИСТУВАЧ СТУДЕНТ</h1>
+	<a href="/class/index" class="my-groups">My Groups</a>
+    <h1>НАЗВА ГРУПИ - <?=$className['name']?></h1>
 </header>
 
 <main>
     <div class="form-block">
         <div class="top-right">Привіт, <?= $login ?>!</div>
         <h2>Перелік домашніх завдань</h2>
-        <form method="post" action="#">
+        <form method="post" action="/submission/upload" enctype="multipart/form-data">
+			<input type="hidden" name="classId" value="<?= $classId?>">
             <table>
                 <thead>
                 <tr>
@@ -98,12 +106,12 @@
                 <?php if (!empty($submissions)): ?>
                     <?php foreach ($submissions as $submission): ?>
                         <tr>
-                            <td>ДЗ №<?= htmlspecialchars($submission['id']) ?></td>
+                            <td>ДЗ №<?= htmlspecialchars($submission['assignment_id']) ?></td>
                             <td><?= htmlspecialchars($submission['status']) ?></td>
                             <td><?= htmlspecialchars($submission['grade']) ?></td>
                             <td>
                                 <?php if (empty($submission['path'])): ?>
-                                    <a href="/index/handInHomeworkPage/?id=<?= $submission['id'] ?>" class="download-btn">Здати ДЗ</a>
+									<a href="/submission/store?id=<?= $submission['assignment_id'] ?>&class_id=<?= $classId ?>" class="download-btn">Здати ДЗ</a>
                                 <?php else: ?>
                                     <?php if (!is_null($submission['grade'])): ?>
                                         <?php if ($submission['grade'] > 2): ?>

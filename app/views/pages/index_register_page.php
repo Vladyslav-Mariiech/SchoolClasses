@@ -2,8 +2,6 @@
 	<h1>РЕЄСТРАЦІЯ</h1>
 </header>
 <main>
-
-
 	<div class="form-block">
 		<form method="post" action="/user/add">
             <?php
