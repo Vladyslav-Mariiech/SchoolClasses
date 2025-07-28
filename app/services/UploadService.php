@@ -2,6 +2,8 @@
 
 namespace app\services;
 
+use app\core\Session;
+
 class UploadService
 {
     private const FILE_AVAILABLE_TYPE = ['application/pdf', 'text/plain'];
@@ -52,5 +54,23 @@ class UploadService
             return self::UPLOAD_FILE_ERRORS[5];
         }
         return $fileName;
+    }
+
+    /**
+     * Handles loading a file from the global $_FILES array
+     * @param string $path
+     * @return string|null
+     */
+    public function uploadedFile(string $path): ?string
+    {
+        if(!isset($_FILES['file'])){
+            return null;
+        }
+        $file = $this->upload($_FILES['file'], $path);
+        if(in_array($file,self::UPLOAD_FILE_ERRORS, true)){
+            Session::setSession('errors', $file);
+            return null;
+        }
+        return $file;
     }
 }
