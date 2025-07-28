@@ -64,7 +64,24 @@ class Session
     public static function destroySession(): void
     {
       if(session_status() === PHP_SESSION_ACTIVE){
+
+          $_SESSION = [];
+
+          setcookie(session_name(), '', time() - 3600, '/');
+
           session_destroy();
       }
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null
+     */
+    public static function pullSession($key): mixed
+    {
+        self::startSession();
+        $value = $_SESSION[$key] ?? null;
+        unset($_SESSION[$key]);
+        return $value;
     }
 }
